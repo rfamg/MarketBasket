@@ -75,14 +75,14 @@ dev.off()
 
 # select rules with vegetables in consequent (right-hand-side) item subsets
 dairy.rules <- subset(second.rules, subset = rhs %pin% "dairy produce")
-inspect(vegie.rules)  # 41 rules
+inspect(dairy.rules)  # 58 rules
 
 # sort by lift and identify the top 10 rules
-top.vegie.rules <- head(sort(vegie.rules, decreasing = TRUE, by = "lift"), 10)
-inspect(top.vegie.rules) 
+top.dairy.rules <- head(sort(dairy.rules, decreasing = TRUE, by = "lift"), 10)
+inspect(top.dairy.rules) 
 
 pdf(file="fig_market_basket_farmer_rules.pdf", width = 11, height = 8.5)
-plot(top.vegie.rules, method="graph", 
+plot(top.dairy.rules, method="graph", 
      control=list(type="items"), 
      shading = "lift")
 dev.off() 
