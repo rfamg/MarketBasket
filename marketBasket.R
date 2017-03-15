@@ -83,6 +83,11 @@ print(summary(second.rules))  # yields 201 rules
 #  Question 4 - 
 #  ---------------------------------------------------------------------------
 
+#Using step 2
+second.rules <- apriori(groceries, 
+                        parameter = list(support = 0.0343, confidence = 0.05))
+print(summary(second.rules))  # yields 201 rules
+
 # examine frequency for each item with support greater than 0.0343
 pdf(file="fig_market_basket_initial_item_support.pdf", 
     width = 8.5, height = 11)
