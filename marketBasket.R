@@ -77,13 +77,13 @@ print(summary(second.rules))  # yields 201 rules
 # select association rules using thresholds for support and confidence 
 second.rules <- apriori(groceries, 
                         parameter = list(support = 0.0343, confidence = 0.01))
-print(summary(second.rules))  # yields 206 rules
+print(summary(second.rules))  # yields 201 rules
 
 #  ---------------------------------------------------------------------------
 #  Question 4 - 
 #  ---------------------------------------------------------------------------
 
-# examine frequency for each item with support greater than 0.025
+# examine frequency for each item with support greater than 0.0343
 pdf(file="fig_market_basket_initial_item_support.pdf", 
     width = 8.5, height = 11)
 itemFrequencyPlot(Groceries, support = 0.0343, cex.names=0.8, xlim = c(0,0.3),
@@ -106,20 +106,20 @@ dev.off()
 # data visualization of association rules in scatter plot
 pdf(file="fig_market_basket_rules.pdf", width = 8.5, height = 8.5)
 plot(second.rules, 
-     control=list(jitter=2, col = rev(brewer.pal(9, "Greens")[4:9])),
+     control=list(jitter=2, col = rev(brewer.pal(9, "Blues")[4:9])),
      shading = "lift")   
 dev.off()    
 
 # grouped matrix of rules 
 pdf(file="fig_market_basket_rules_matrix.pdf", width = 8.5, height = 8.5)
-plot(second.rules, method="grouped",   
-     control=list(col = rev(brewer.pal(9, "Greens")[4:9])))
+plot(second.rules, method="grouped",
+     control=list(col = rev(brewer.pal(9, "Reds")[4:9])))
 dev.off()    
 
 
 # sort by lift and identify the top 10 rules
 top.dairy.rules <- head(sort(dairy.rules, decreasing = TRUE, by = "lift"), 10)
-inspect(top.dairy.rules) 
+inspect(top.dairy.rules)
 
 pdf(file="fig_market_basket_farmer_rules.pdf", width = 11, height = 8.5)
 plot(top.dairy.rules, method="graph", 
