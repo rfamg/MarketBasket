@@ -27,13 +27,9 @@
   print(dim(Groceries)[2])  # 169 initial store items  
   
   # explore possibilities for combining similar items
-  print(itemInfo(Groceries))
+  itemInfo(Groceries)
   print(levels(itemInfo(Groceries)[["level1"]]))  # 10 levels... too few 
   print(levels(itemInfo(Groceries)[["level2"]]))  # 55 distinct levels
-  
-  
-
-  
   
 
   
