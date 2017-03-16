@@ -1,8 +1,8 @@
   #---------------------------------------------------------------------------
   #---------------------------------------------------------------------------
   #  Market Basket
-  #  Written by Rafael Guimaraes
-  #  Date March 13th 2017
+  #  Written by Rafael Guimaraes and Brian Kangogo
+  #  Date March 14th 2017
   #  Version 1.0
   #  ---------------------------------------------------------------------------
   #  ---------------------------------------------------------------------------
@@ -27,9 +27,15 @@
   print(dim(Groceries)[2])  # 169 initial store items  
   
   # explore possibilities for combining similar items
-  print(head(itemInfo(Groceries))) 
+  print(itemInfo(Groceries))
   print(levels(itemInfo(Groceries)[["level1"]]))  # 10 levels... too few 
   print(levels(itemInfo(Groceries)[["level2"]]))  # 55 distinct levels
+  
+  
+
+  
+  
+
   
   # aggregate items using the 55 level2 levels for food categories
   # to create a more meaningful set of items
@@ -41,27 +47,27 @@
   
   # obtain large set of association rules for items by category and all shoppers
   # this is done by setting very low criteria for support and confidence
-  #first.rules <- apriori(groceries, 
-                         #parameter = list(support = 0.001, confidence = 0.05))
-  #print(summary(first.rules))  # yields 69,921 rules... too many
+  first.rules <- apriori(groceries, 
+                         parameter = list(support = 0.001, confidence = 0.05))
+  print(summary(first.rules))  # yields 69,921 rules... too many
   
   # select association rules using thresholds for support and confidence 
   second.rules <- apriori(groceries, 
                           parameter = list(support = 0.025, confidence = 0.05))
   print(summary(second.rules))  # yields 344 rules
   
-  
+
   
   #  ---------------------------------------------------------------------------
   #  Question 1 - 
   #  ---------------------------------------------------------------------------
   
   # select rules with dairy produts in consequent (right-hand-side) item subsets
-  dairy.rules <- subset(second.rules, subset = rhs %pin% "dairy produce")
-  inspect(dairy.rules)  # 58 rules - when the support = 0.025. If we use the support of 0.0343 we get 36 rules.
+  #dairy.rules <- subset(second.rules, subset = rhs %pin% "dairy produce")
+  #inspect(dairy.rules)  # 58 rules - when the support = 0.025. If we use the support of 0.0343 we get 36 rules.
   
-  
-  
+  print(itemInfo(Groceries[,25:32]))
+
   #  ---------------------------------------------------------------------------ß
   #  Question 2 - 
   #  ---------------------------------------------------------------------------
@@ -82,7 +88,8 @@
   #  ---------------------------------------------------------------------------
   #  Question 4 - 
   #  ---------------------------------------------------------------------------
-  
+  dairy.rules <- subset(second.rules, subset = rhs %pin% "dairy produce")
+  inspect(dairy.rules)  # 58 rules - when the support = 0.025. If we use the support of 0.0343 we get 36 rules.
   #Using step 2
   second.rules <- apriori(groceries, 
                           parameter = list(support = 0.0343, confidence = 0.05))
@@ -126,7 +133,7 @@
   top.dairy.rules <- head(sort(dairy.rules, decreasing = TRUE, by = "lift"), 10)
   inspect(top.dairy.rules)
   
-  pdf(file="fig_market_basket_farmer_rules.pdf", width = 11, height = 8.5)
+  pdf(file="fig_market_basket_dairy_rules.pdf", width = 11, height = 8.5)
   plot(top.dairy.rules, method="graph", 
        control=list(type="items"), 
        shading = "lift")
