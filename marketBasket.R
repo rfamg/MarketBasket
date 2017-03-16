@@ -57,11 +57,8 @@
   #  ---------------------------------------------------------------------------
   #  Question 1 - 
   #  ---------------------------------------------------------------------------
-  
-  # select rules with dairy produts in consequent (right-hand-side) item subsets
-  #dairy.rules <- subset(second.rules, subset = rhs %pin% "dairy produce")
-  #inspect(dairy.rules)  # 58 rules - when the support = 0.025. If we use the support of 0.0343 we get 36 rules.
-  
+
+  # Select the rows that conatin the dairy produce  
   print(itemInfo(Groceries[,25:32]))
 
   
